@@ -13,5 +13,9 @@ module.exports = {
 
     viewItem: (req, res) => {
         res.render('admin/item/viewItem.ejs');
+    },
+
+    viewBooking: (req, res) => {
+        res.render('admin/booking/viewBooking.ejs');
     }
 };
