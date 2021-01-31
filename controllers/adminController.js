@@ -5,5 +5,9 @@ module.exports = {
 
     viewCategory: (req, res) => {
         res.render('admin/category/viewCategory.ejs');
+    },
+
+    viewBank: (req, res) => {
+        res.render('admin/bank/viewBank.ejs');
     }
 };
