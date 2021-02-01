@@ -3,6 +3,20 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+//====== Import Mongoose ======
+const mongoose = require('mongoose');
+mongoose.connect('mongodb+srv://test:test@cluster0.jtm9y.mongodb.net/db_staycation?retryWrites=true&w=majority', {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+  useCreateIndex: true,
+  useFindAndModify: false,
+});
+let db = mongoose.connection;
+
+db.on('error', console.error.bind(console, 'Database connect error!'));
+db.once('open', () => {
+    console.log('Database is connected');
+});
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
