@@ -1,7 +1,7 @@
 <div class="card shadow mb-4">
     <div class="card-header py-3">
         <!-- Button trigger modal -->
-        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#add-Modal">
             Add Category
         </button>
     </div>
@@ -15,6 +15,24 @@
                     <th>Action</th>
                 </tr>
             </thead>
+            <tbody>
+                <% for(let i = 0; i < category.length; i++) { %>
+                        <tr>
+                            <td><%= i + 1 %></td>
+                            <td><%= category[i].name %></td>
+                            <td>
+                                <a 
+                                    href="javascript:void()" 
+                                    type="button" 
+                                    class="btn btn-warning btn-sm button-update"
+                                    data-id="<%= category[i].id %>" data-name="<%= category[i].name %>">
+                                        <i class="fas fa-edit"></i>
+                                </a>
+                                <a href="" class="btn btn-danger btn-sm"><i class="fas fa-trash"></i></a>
+                            </td>
+                        </tr>
+                <% } %>
+            </tbody>
         </table>
     </div>
     </div>

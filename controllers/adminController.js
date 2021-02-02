@@ -5,8 +5,14 @@ module.exports = {
         res.render('admin/dashboard/viewDashboard.ejs');
     },
 
-    viewCategory: (req, res) => {
-        res.render('admin/category/viewCategory.ejs');
+    viewCategory: async (req, res) => {
+        try {
+            const category =  await Category.find();
+            // console.log(category);
+            res.render('admin/category/viewCategory.ejs', { category });
+        } catch(error) {
+            res.redirect('/admin/category');
+        }
     },
 
     addCategory: async (req, res) => {

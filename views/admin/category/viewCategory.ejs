@@ -71,7 +71,18 @@
         </div>
     </div>
     <%- include('addModal.ejs') %>
+    <%- include('editModal.ejs') %>
     <%- include('../../partials/js.ejs') %>
 </body>
 
 </html>
+
+<script>
+    $('#dataTable').on('click','.button-update', function(){
+        let id = $(this).data('id');
+        let data = $(this).data('name');
+        $('#edit-modal').modal('show');
+        $('.id').val(id);
+        $('.name').val(data);
+    });
+</script>
