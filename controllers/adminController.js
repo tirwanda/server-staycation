@@ -26,6 +26,30 @@ module.exports = {
         }
     },
 
+    deleteCategory: async (req, res) => {
+        try {
+            const { id } = req.params;
+            const category = await Category.findOne({_id: id});
+            await category.remove();
+            await category.save();
+            res.redirect('admin/category');
+        } catch {
+            res.redirect('/admin/category');
+        }
+    },
+
+    editCategory: async (req, res) => {
+        try {
+            const { id, name } = req.body;
+            const category = await Category.findOne({ _id: id});
+            category.name = name;
+            await category.save();
+            res.redirect('/admin/category');
+        } catch {
+            res.redirect('/admin/category');
+        }
+    },
+
     viewBank: (req, res) => {
         res.render('admin/bank/viewBank.ejs');
     },
