@@ -1,88 +1,100 @@
 <!DOCTYPE html>
 <html lang="en">
-    
-<%- include('../../partials/header.ejs') %>
-<body id="page-top">
+	<%- include('../../partials/header.ejs') %>
+	<body id="page-top">
+		<div id="wrapper">
+			<!-- Sidebar -->
+			<%- include('../../partials/sidebar.ejs') %>
+			<!-- End of Sidebar -->
 
-    <div id="wrapper">
+			<!-- Content Wrapper -->
+			<div id="content-wrapper" class="d-flex flex-column">
+				<!-- Main Content -->
+				<div id="content">
+					<!-- Topbar -->
+					<%- include('../../partials/navbar.ejs') %>
+					<!-- End of Topbar -->
 
-        <!-- Sidebar -->
-        <%- include('../../partials/sidebar.ejs') %>
-        <!-- End of Sidebar -->
+					<!-- Begin Page Content -->
+					<div class="container-fluid">
+						<%- include('../../partials/message.ejs') %>
+						<!-- Page Heading -->
+						<h1 class="h3 mb-4 text-gray-800">Category</h1>
+						<!-- End Heading -->
 
-        <!-- Content Wrapper -->
-        <div id="content-wrapper" class="d-flex flex-column">
+						<!-- Table section -->
+						<%- include('./tableCategory.ejs') %>
+						<!-- End Table section -->
+					</div>
+					<!-- /.container-fluid -->
+				</div>
+				<!-- End of Main Content -->
 
-            <!-- Main Content -->
-            <div id="content">
+				<!-- Footer -->
+				<%- include('../../partials/footer.ejs') %>
+				<!-- End of Footer -->
+			</div>
+			<!-- End of Content Wrapper -->
+		</div>
+		<!-- End of Page Wrapper -->
 
-                <!-- Topbar -->
-                <%- include('../../partials/navbar.ejs') %>
-                <!-- End of Topbar -->
+		<!-- Scroll to Top Button-->
+		<a class="scroll-to-top rounded" href="#page-top">
+			<i class="fas fa-angle-up"></i>
+		</a>
 
-                <!-- Begin Page Content -->
-                <div class="container-fluid">
-
-                    <!-- Page Heading -->
-                    <h1 class="h3 mb-4 text-gray-800">Category</h1>
-                    <!-- End Heading -->
-
-                    <!-- Table section -->
-                    <%- include('./tableCategory.ejs') %>
-                    <!-- End Table section -->
-
-                </div>
-                <!-- /.container-fluid -->
-
-            </div>
-            <!-- End of Main Content -->
-
-            <!-- Footer -->
-            <%- include('../../partials/footer.ejs') %>
-            <!-- End of Footer -->
-
-        </div>
-        <!-- End of Content Wrapper -->
-
-    </div>
-    <!-- End of Page Wrapper -->
-
-    <!-- Scroll to Top Button-->
-    <a class="scroll-to-top rounded" href="#page-top">
-    <i class="fas fa-angle-up"></i>
-    </a>
-
-    <!-- Logout Modal-->
-    <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
-                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">×</span>
-                    </button>
-                </div>
-                <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
-                <div class="modal-footer">
-                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                    <a class="btn btn-primary" href="login.html">Logout</a>
-                </div>
-            </div>
-        </div>
-    </div>
-    <%- include('addModal.ejs') %>
-    <%- include('editModal.ejs') %>
-    <%- include('../../partials/js.ejs') %>
-</body>
-
+		<!-- Logout Modal-->
+		<div
+			class="modal fade"
+			id="logoutModal"
+			tabindex="-1"
+			role="dialog"
+			aria-labelledby="exampleModalLabel"
+			aria-hidden="true"
+		>
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="exampleModalLabel">
+							Ready to Leave?
+						</h5>
+						<button
+							class="close"
+							type="button"
+							data-dismiss="modal"
+							aria-label="Close"
+						>
+							<span aria-hidden="true">×</span>
+						</button>
+					</div>
+					<div class="modal-body">
+						Select "Logout" below if you are ready to end your
+						current session.
+					</div>
+					<div class="modal-footer">
+						<button
+							class="btn btn-secondary"
+							type="button"
+							data-dismiss="modal"
+						>
+							Cancel
+						</button>
+						<a class="btn btn-primary" href="login.html">Logout</a>
+					</div>
+				</div>
+			</div>
+		</div>
+		<%- include('addModal.ejs') %> <%- include('editModal.ejs') %> <%-
+		include('../../partials/js.ejs') %>
+	</body>
 </html>
 
 <script>
-    $('#dataTable').on('click','.button-update', function(){
-        let id = $(this).data('id');
-        let data = $(this).data('name');
-        $('#edit-modal').modal('show');
-        $('.id').val(id);
-        $('.name').val(data);
-    });
+	$('#dataTable').on('click', '.button-update', function () {
+		let id = $(this).data('id');
+		let data = $(this).data('name');
+		$('#edit-modal').modal('show');
+		$('.id').val(id);
+		$('.name').val(data);
+	});
 </script>

@@ -4,26 +4,31 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 const methodOverride = require('method-override');
+const session = require('express-session');
+const flash = require('connect-flash');
 //====== Import Mongoose ======
 const mongoose = require('mongoose');
-mongoose.connect('mongodb+srv://test:test@cluster0.jtm9y.mongodb.net/db_staycation?retryWrites=true&w=majority', {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-  useCreateIndex: true,
-  useFindAndModify: false,
-});
+// mongoose.connect('mongodb+srv://test:test@cluster0.jtm9y.mongodb.net/db_staycation?retryWrites=true&w=majority', {
+mongoose.connect(
+	'mongodb://test:test@cluster0-shard-00-00.jtm9y.mongodb.net:27017,cluster0-shard-00-01.jtm9y.mongodb.net:27017,cluster0-shard-00-02.jtm9y.mongodb.net:27017/db_staycation?ssl=true&replicaSet=atlas-p0skgr-shard-0&authSource=admin&retryWrites=true&w=majority',
+	{
+		useNewUrlParser: true,
+		useUnifiedTopology: true,
+		useCreateIndex: true,
+		useFindAndModify: false,
+	}
+);
 let db = mongoose.connection;
 
 db.on('error', console.error.bind(console, 'Database connect error!'));
 db.once('open', () => {
-    console.log('Database is connected');
+	console.log('Database is connected');
 });
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 //==== Router Admin ====
 const adminRouter = require('./routes/admin');
-
 
 var app = express();
 
@@ -32,12 +37,26 @@ app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
 app.use(methodOverride('_method'));
+app.use(
+	session({
+		secret: 'keyboard cat',
+		resave: false,
+		saveUninitialized: true,
+		cookie: { maxAge: 60000 },
+	})
+);
+app.use(flash());
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
-app.use('/sb-admin-2', express.static(path.join(__dirname, 'node_modules/startbootstrap-sb-admin-2')));
+app.use(
+	'/sb-admin-2',
+	express.static(
+		path.join(__dirname, 'node_modules/startbootstrap-sb-admin-2')
+	)
+);
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
@@ -45,19 +64,19 @@ app.use('/users', usersRouter);
 app.use('/admin', adminRouter);
 
 // catch 404 and forward to error handler
-app.use(function(req, res, next) {
-  next(createError(404));
+app.use(function (req, res, next) {
+	next(createError(404));
 });
 
 // error handler
-app.use(function(err, req, res, next) {
-  // set locals, only providing error in development
-  res.locals.message = err.message;
-  res.locals.error = req.app.get('env') === 'development' ? err : {};
+app.use(function (err, req, res, next) {
+	// set locals, only providing error in development
+	res.locals.message = err.message;
+	res.locals.error = req.app.get('env') === 'development' ? err : {};
 
-  // render the error page
-  res.status(err.status || 500);
-  res.render('error');
+	// render the error page
+	res.status(err.status || 500);
+	res.render('error');
 });
 
 module.exports = app;
