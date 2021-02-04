@@ -59,8 +59,12 @@ module.exports = {
 			const { bankName, accountNumber, name } = req.body;
 			req.flash('alertMessage', 'Success Add Bank');
 			req.flash('alertStatus', 'success');
-			console.log(req.file);
-			// await Bank.create({ bankName, accountNumber, name });
+			await Bank.create({
+				bankName,
+				accountNumber,
+				name,
+				imageUrl: `images/${req.file.filename}`,
+			});
 			res.redirect('/admin/bank');
 		} catch (error) {
 			res.redirect('/admin/bank');
