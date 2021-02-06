@@ -6,18 +6,16 @@ var logger = require('morgan');
 const methodOverride = require('method-override');
 const session = require('express-session');
 const flash = require('connect-flash');
+require('dotenv/config');
+
 //====== Import Mongoose ======
 const mongoose = require('mongoose');
-// mongoose.connect('mongodb+srv://test:test@cluster0.jtm9y.mongodb.net/db_staycation?retryWrites=true&w=majority', {
-mongoose.connect(
-	'mongodb://test:test@cluster0-shard-00-00.jtm9y.mongodb.net:27017,cluster0-shard-00-01.jtm9y.mongodb.net:27017,cluster0-shard-00-02.jtm9y.mongodb.net:27017/db_staycation?ssl=true&replicaSet=atlas-p0skgr-shard-0&authSource=admin&retryWrites=true&w=majority',
-	{
-		useNewUrlParser: true,
-		useUnifiedTopology: true,
-		useCreateIndex: true,
-		useFindAndModify: false,
-	}
-);
+mongoose.connect(process.env.DB_CONNECTION, {
+	useNewUrlParser: true,
+	useUnifiedTopology: true,
+	useCreateIndex: true,
+	useFindAndModify: false,
+});
 let db = mongoose.connection;
 
 db.on('error', console.error.bind(console, 'Database connect error!'));
