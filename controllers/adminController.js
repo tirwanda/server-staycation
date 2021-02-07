@@ -47,10 +47,14 @@ module.exports = {
 	viewItem: async (req, res) => {
 		try {
 			const category = await Category.find();
+			const item = await Item.find()
+				.populate({ path: 'imageId', select: 'id imageUrl' })
+				.populate({ path: 'categoryId', select: 'id name' });
 			const alertMessage = req.flash('alertMessage');
 			const alertStatus = req.flash('alertStatus');
 			const alert = { message: alertMessage, status: alertStatus };
 			res.render('admin/item/viewItem.ejs', {
+				item,
 				category,
 				alert,
 				title: 'Staycation | Item',
