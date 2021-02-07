@@ -58,8 +58,32 @@ module.exports = {
 				category,
 				alert,
 				title: 'Staycation | Item',
+				action: 'view',
 			});
 		} catch (error) {
+			res.redirect('/admin/item');
+		}
+	},
+
+	showImageItem: async (req, res) => {
+		try {
+			const { id } = req.params;
+			const alertMessage = req.flash('alertMessage');
+			const alertStatus = req.flash('alertStatus');
+			const alert = { message: alertMessage, status: alertStatus };
+			const item = await Item.findOne({ _id: id }).populate({
+				path: 'imageId',
+				select: 'id imageUrl',
+			});
+			res.render('admin/item/viewItem.ejs', {
+				item,
+				alert,
+				title: 'Staycation | Show Image Item',
+				action: 'show image',
+			});
+		} catch (error) {
+			req.flash('alertMessage', `${error.message}`);
+			req.flash('alertStatus', 'danger');
 			res.redirect('/admin/item');
 		}
 	},
