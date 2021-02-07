@@ -7,13 +7,21 @@ const storage = multer.diskStorage({
 	},
 });
 
-const upload = multer({
+const uploadSingle = multer({
 	storage: storage,
 	limits: { fileSize: 1000000 },
 	fileFilter: function (req, file, cb) {
 		checkFileType(file, cb);
 	},
 }).single('imageUrl');
+
+const uploadMultiple = multer({
+	storage: storage,
+	// limits: { fileSize: 1000000 },
+	fileFilter: function (req, file, cb) {
+		checkFileType(file, cb);
+	},
+}).array('imageUrl');
 
 function checkFileType(file, cb) {
 	const fileTypes = /jpeg|jpg|png|gif/;
@@ -27,4 +35,4 @@ function checkFileType(file, cb) {
 		cb('Error: Images Only !!!');
 	}
 }
-module.exports = { upload };
+module.exports = { uploadSingle, uploadMultiple };
