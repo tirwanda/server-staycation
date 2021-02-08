@@ -3,6 +3,7 @@ const router = express.Router();
 const { uploadSingle, uploadMultiple } = require('../middlewares/multer');
 
 const adminController = require('../controllers/adminController');
+const { editItem } = require('../controllers/adminController');
 
 router.get('/dashboard', adminController.viewDasboard);
 
@@ -20,6 +21,7 @@ router.get('/item', adminController.viewItem);
 router.get('/item/show-image/:id', adminController.showImageItem);
 router.get('/item/:id', adminController.showEditItem);
 router.post('/item', uploadMultiple, adminController.addItem);
+router.put('/item/:id', uploadMultiple, adminController.editItem);
 
 router.get('/booking', adminController.viewBooking);
 
