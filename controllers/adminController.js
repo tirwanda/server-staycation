@@ -88,6 +88,30 @@ module.exports = {
 		}
 	},
 
+	showEditItem: async (req, res) => {
+		try {
+			const { id } = req.params;
+			const alertMessage = req.flash('alertMessage');
+			const alertStatus = req.flash('alertStatus');
+			const alert = { message: alertMessage, status: alertStatus };
+			const item = await Item.findOne({ _id: id })
+				.populate({ path: 'imageId', select: 'id imageUrl' })
+				.populate({ path: 'categoryId', select: 'id name' });
+			const category = await Category.find();
+			res.render('admin/item/viewItem.ejs', {
+				item,
+				category,
+				alert,
+				title: 'Staycation | Edit Item',
+				action: 'edit',
+			});
+		} catch (error) {
+			req.flash('alertMessage', `${error.message}`);
+			req.flash('alertStatus', 'danger');
+			res.redirect('/admin/item');
+		}
+	},
+
 	addItem: async (req, res) => {
 		try {
 			const { title, price, city, categoryId, about } = req.body;
