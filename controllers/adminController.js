@@ -272,6 +272,34 @@ module.exports = {
 		}
 	},
 
+	deleteItem: async (req, res) => {
+		try {
+			const { id } = req.params;
+			console.log(req);
+			const item = await Item.findOne({ _id: id }).populate('imageId');
+			for (let i = 0; i < item.imageId.length; i++) {
+				Image.findOne({ _id: item.imageId[i]._id })
+					.then(async (image) => {
+						await fs.unlink(path.join(`public/${image.imageUrl}`));
+						image.remove();
+					})
+					.catch((error) => {
+						req.flash('alertMessage', `${error.message}`);
+						req.flash('alertStatus', 'danger');
+						res.redirect('/admin/item');
+					});
+			}
+			await item.remove();
+			req.flash('alertMessage', 'Success Delete Item');
+			req.flash('alertStatus', 'success');
+			res.redirect('/admin/bank');
+		} catch (error) {
+			req.flash('alertMessage', `${error.message}`);
+			req.flash('alertStatus', 'danger');
+			res.redirect('/admin/bank');
+		}
+	},
+
 	deleteCategory: async (req, res) => {
 		try {
 			const { id } = req.params;
