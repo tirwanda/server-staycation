@@ -65,6 +65,24 @@ module.exports = {
 		}
 	},
 
+	showDetailItem: async (req, res) => {
+		const { itemId } = req.params;
+		try {
+			const alertMessage = req.flash('alertMessage');
+			const alertStatus = req.flash('alertStatus');
+			const alert = { message: alertMessage, status: alertStatus };
+
+			res.render('admin/item/detail-item/showDetailItem.ejs', {
+				title: 'Staycation | Detail Item',
+				alert,
+			});
+		} catch (error) {
+			req.flash('alertMessage', `${error.message}`);
+			req.flash('alertStatus', 'danger');
+			res.redirect(`/admin/item/showDetailItem/${itemId}`);
+		}
+	},
+
 	showImageItem: async (req, res) => {
 		try {
 			const { id } = req.params;
@@ -275,7 +293,6 @@ module.exports = {
 	deleteItem: async (req, res) => {
 		try {
 			const { id } = req.params;
-			console.log(req);
 			const item = await Item.findOne({ _id: id }).populate('imageId');
 			for (let i = 0; i < item.imageId.length; i++) {
 				Image.findOne({ _id: item.imageId[i]._id })

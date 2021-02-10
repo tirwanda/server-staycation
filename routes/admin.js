@@ -24,6 +24,8 @@ router.post('/item', uploadMultiple, adminController.addItem);
 router.put('/item/:id', uploadMultiple, adminController.editItem);
 router.delete('/item/:id/delete', adminController.deleteItem);
 
+router.get('/item/showDetailItem/:itemId', adminController.showDetailItem);
+
 router.get('/booking', adminController.viewBooking);
 
 module.exports = router;
