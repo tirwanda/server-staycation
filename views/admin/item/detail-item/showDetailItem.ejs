@@ -113,10 +113,20 @@
 				</div>
 			</div>
 		</div>
-		<%- include('../../../partials/js.ejs') %>
+		<%- include('editModal.ejs') %> <%- include('../../../partials/js.ejs')
+		%>
 		<script>
 			$(document).ready(function () {
 				$('#dataTableActivity').DataTable();
+			});
+			$('#dataTable').on('click', '.button-update', function () {
+				let id = $(this).data('id');
+				let name = $(this).data('name');
+				let qty = $(this).data('qty');
+				$('#edit-modal').modal('show');
+				$('.id').val(id);
+				$('.name').val(name);
+				$('.qty').val(qty);
 			});
 			CKEDITOR.replace('about');
 		</script>
