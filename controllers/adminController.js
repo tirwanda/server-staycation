@@ -72,11 +72,12 @@ module.exports = {
 			const alertMessage = req.flash('alertMessage');
 			const alertStatus = req.flash('alertStatus');
 			const alert = { message: alertMessage, status: alertStatus };
-
+			const feature = await Feature.find({ itemId: itemId });
 			res.render('admin/item/detail-item/showDetailItem.ejs', {
 				title: 'Staycation | Detail Item',
 				alert,
 				itemId,
+				feature,
 			});
 		} catch (error) {
 			req.flash('alertMessage', `${error.message}`);

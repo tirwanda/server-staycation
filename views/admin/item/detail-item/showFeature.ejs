@@ -73,6 +73,44 @@
 									<th>Action</th>
 								</tr>
 							</thead>
+							<tbody>
+								<% for(let i = 0; i < feature.length; i++) { %>
+								<tr>
+									<td><%= i + 1 %></td>
+									<td><%= feature[i].name %></td>
+									<td><%= feature[i].qty %></td>
+									<td>
+										<img
+											src="http://localhost:3000/<%= feature[i].imageUrl %>"
+											alt="Feature 1"
+											width="70px"
+										/>
+									</td>
+									<td>
+										<form
+											action="/admin/bank/<%= feature[i]._id %>?_method=DELETE"
+											method="POST"
+										>
+											<a
+												href="javascript:void();"
+												type="button"
+												class="btn btn-warning btn-circle btn-sm button-update"
+												data-id="<%= feature[i]._id %>"
+												data-name="<%= feature[i].name %>"
+												data-qty="<%= feature[i].aty %>"
+												><i class="fas fa-edit"></i
+											></a>
+											<button
+												type="submit"
+												class="btn btn-danger btn-sm"
+											>
+												<i class="fas fa-trash"></i>
+											</button>
+										</form>
+									</td>
+								</tr>
+								<% } %>
+							</tbody>
 						</table>
 					</div>
 				</div>
