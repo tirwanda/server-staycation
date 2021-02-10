@@ -350,6 +350,34 @@ module.exports = {
 		}
 	},
 
+	deleteFeature: async (req, res) => {
+		const { id, itemId } = req.params;
+		try {
+			const feature = await Feature.findOne({ _id: id });
+
+			const item = await Item.findOne({ _id: itemId }).populate(
+				'featuredId'
+			);
+			for (let i = 0; i < item.featuredId.length; i++) {
+				if (
+					item.featuredId[i]._id.toString() === feature._id.toString()
+				) {
+					item.featuredId.pull({ _id: feature._id });
+					await item.save();
+				}
+			}
+			await fs.unlink(path.join(`public/${feature.imageUrl}`));
+			await feature.remove();
+			req.flash('alertMessage', 'Success Delete Feature');
+			req.flash('alertStatus', 'success');
+			res.redirect(`/admin/item/showDetailItem/${itemId}`);
+		} catch (error) {
+			req.flash('alertMessage', `${error.message}`);
+			req.flash('alertStatus', 'danger');
+			res.redirect(`/admin/item/showDetailItem/${itemId}`);
+		}
+	},
+
 	deleteItem: async (req, res) => {
 		try {
 			const { id } = req.params;
@@ -395,7 +423,6 @@ module.exports = {
 	deleteBank: async (req, res) => {
 		try {
 			const { id } = req.params;
-			// console.log(req);
 			const bank = await Bank.findOne({ _id: id });
 			await fs.unlink(path.join(`public/${bank.imageUrl}`));
 			await bank.remove();
