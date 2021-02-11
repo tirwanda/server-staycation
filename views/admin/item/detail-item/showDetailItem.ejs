@@ -113,12 +113,25 @@
 				</div>
 			</div>
 		</div>
-		<%- include('editModal.ejs') %> <%- include('../../../partials/js.ejs')
-		%>
+
+		<%- include('editModal.ejs') %> <%- include('editModalActivity.ejs') %>
+		<%- include('../../../partials/js.ejs') %>
+
 		<script>
 			$(document).ready(function () {
 				$('#dataTableActivity').DataTable();
 			});
+
+			$('#dataTableActivity').on('click', '.button-update', function () {
+				let id = $(this).data('id');
+				let name = $(this).data('name');
+				let type = $(this).data('type');
+				$('#edit-modal-activity').modal('show');
+				$('.id').val(id);
+				$('.name').val(name);
+				$('.type').val(type);
+			});
+
 			$('#dataTable').on('click', '.button-update', function () {
 				let id = $(this).data('id');
 				let name = $(this).data('name');
