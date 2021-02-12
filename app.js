@@ -10,7 +10,7 @@ require('dotenv/config');
 
 //====== Import Mongoose ======
 const mongoose = require('mongoose');
-mongoose.connect(process.env.DB_CONNECTION, {
+mongoose.connect(process.env.DB_CONNECTION_seed, {
 	useNewUrlParser: true,
 	useUnifiedTopology: true,
 	useCreateIndex: true,
