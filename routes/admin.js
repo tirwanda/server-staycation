@@ -5,6 +5,8 @@ const { uploadSingle, uploadMultiple } = require('../middlewares/multer');
 const adminController = require('../controllers/adminController');
 const { editItem } = require('../controllers/adminController');
 
+router.get('/signin', adminController.viewSignin);
+router.post('/signin', adminController.actionSignin);
 router.get('/dashboard', adminController.viewDasboard);
 
 router.get('/category', adminController.viewCategory);
