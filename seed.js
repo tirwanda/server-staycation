@@ -1,9 +1,10 @@
 var seeder = require('mongoose-seed');
 var mongoose = require('mongoose');
+require('dotenv/config');
 
 // Connect to MongoDB via Mongoose
 seeder.connect(
-	'mongodb://test:test@cluster0-shard-00-00.jtm9y.mongodb.net:27017,cluster0-shard-00-01.jtm9y.mongodb.net:27017,cluster0-shard-00-02.jtm9y.mongodb.net:27017/db_staycation_seed?ssl=true&replicaSet=atlas-p0skgr-shard-0&authSource=admin&retryWrites=true&w=majority',
+	process.env.DB_CONNECTION_seed,
 	{
 		useNewUrlParser: true,
 		useCreateIndex: true,
@@ -33,6 +34,7 @@ seeder.connect(
 				'Member',
 				'Item',
 				'Feature',
+				'Activity',
 				'Image',
 				'Booking',
 				'Users',
@@ -169,7 +171,7 @@ var data = [
 						),
 					},
 				],
-				featureId: [
+				featuredId: [
 					// done
 					{
 						_id: mongoose.Types.ObjectId(
@@ -276,7 +278,7 @@ var data = [
 						),
 					},
 				],
-				featureId: [
+				featuredId: [
 					// done
 					{
 						_id: mongoose.Types.ObjectId(
@@ -383,7 +385,7 @@ var data = [
 						),
 					},
 				],
-				featureId: [
+				featuredId: [
 					// done
 					{
 						_id: mongoose.Types.ObjectId(
@@ -490,7 +492,7 @@ var data = [
 						),
 					},
 				],
-				featureId: [
+				featuredId: [
 					// done
 					{
 						_id: mongoose.Types.ObjectId(
@@ -597,7 +599,7 @@ var data = [
 						),
 					},
 				],
-				featureId: [
+				featuredId: [
 					// done
 					{
 						_id: mongoose.Types.ObjectId(
@@ -704,7 +706,7 @@ var data = [
 						),
 					},
 				],
-				featureId: [
+				featuredId: [
 					// done
 					{
 						_id: mongoose.Types.ObjectId(
@@ -811,7 +813,7 @@ var data = [
 						),
 					},
 				],
-				featureId: [
+				featuredId: [
 					// done
 					{
 						_id: mongoose.Types.ObjectId(
@@ -918,7 +920,7 @@ var data = [
 						),
 					},
 				],
-				featureId: [
+				featuredId: [
 					// done
 					{
 						_id: mongoose.Types.ObjectId(
@@ -1025,7 +1027,7 @@ var data = [
 						),
 					},
 				],
-				featureId: [
+				featuredId: [
 					// done
 					{
 						_id: mongoose.Types.ObjectId(
@@ -1132,7 +1134,7 @@ var data = [
 						),
 					},
 				],
-				featureId: [
+				featuredId: [
 					// done
 					{
 						_id: mongoose.Types.ObjectId(
@@ -1239,7 +1241,7 @@ var data = [
 						),
 					},
 				],
-				featureId: [
+				featuredId: [
 					// done
 					{
 						_id: mongoose.Types.ObjectId(
@@ -1346,7 +1348,7 @@ var data = [
 					},
 					// done
 				],
-				featureId: [
+				featuredId: [
 					// done
 					{
 						_id: mongoose.Types.ObjectId(
