@@ -9,6 +9,7 @@ const { editItem } = require('../controllers/adminController');
 router.get('/signin', adminController.viewSignin);
 router.post('/signin', adminController.actionSignin);
 router.use(auth);
+router.get('/logout', adminController.actionLogout);
 router.get('/dashboard', adminController.viewDasboard);
 
 router.get('/category', adminController.viewCategory);

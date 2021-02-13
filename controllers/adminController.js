@@ -62,10 +62,18 @@ module.exports = {
 		}
 	},
 
+	actionLogout: (req, res) => {
+		req.session.destroy();
+		res.redirect('/admin/signin');
+	},
+
 	viewDasboard: (req, res) => {
-		res.render('admin/dashboard/viewDashboard.ejs', {
-			title: 'Staycation | Dashboard',
-		});
+		try {
+			res.render('admin/dashboard/viewDashboard.ejs', {
+				title: 'Staycation | Dashboard',
+				user: req.session.user,
+			});
+		} catch (error) {}
 	},
 
 	viewCategory: async (req, res) => {
@@ -78,6 +86,7 @@ module.exports = {
 				category,
 				alert,
 				title: 'Staycation | Category',
+				user: req.session.user,
 			});
 		} catch (error) {
 			res.redirect('/admin/category');
@@ -94,6 +103,7 @@ module.exports = {
 				title: 'Staycation | Bank',
 				bank,
 				alert,
+				user: req.session.user,
 			});
 		} catch (error) {
 			res.redirect('/admin/bank');
@@ -115,6 +125,7 @@ module.exports = {
 				alert,
 				title: 'Staycation | Item',
 				action: 'view',
+				user: req.session.user,
 			});
 		} catch (error) {
 			res.redirect('/admin/item');
@@ -136,6 +147,7 @@ module.exports = {
 				itemId,
 				activity,
 				feature,
+				user: req.session.user,
 			});
 		} catch (error) {
 			req.flash('alertMessage', `${error.message}`);
@@ -159,6 +171,7 @@ module.exports = {
 				alert,
 				title: 'Staycation | Show Image Item',
 				action: 'show image',
+				user: req.session.user,
 			});
 		} catch (error) {
 			req.flash('alertMessage', `${error.message}`);
@@ -582,6 +595,7 @@ module.exports = {
 	viewBooking: (req, res) => {
 		res.render('admin/booking/viewBooking.ejs', {
 			title: 'Staycation | Booking',
+			user: req.session.user,
 		});
 	},
 };
