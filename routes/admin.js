@@ -1,12 +1,14 @@
 const express = require('express');
 const router = express.Router();
 const { uploadSingle, uploadMultiple } = require('../middlewares/multer');
+const auth = require('../middlewares/auth');
 
 const adminController = require('../controllers/adminController');
 const { editItem } = require('../controllers/adminController');
 
 router.get('/signin', adminController.viewSignin);
 router.post('/signin', adminController.actionSignin);
+router.use(auth);
 router.get('/dashboard', adminController.viewDasboard);
 
 router.get('/category', adminController.viewCategory);
