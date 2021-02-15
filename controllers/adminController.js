@@ -206,6 +206,22 @@ module.exports = {
 		}
 	},
 
+	showDetailBooking: async (req, res) => {
+		const { bookingId } = req.params;
+		try {
+			const booking = await Booking.findOne({ _id: bookingId })
+				.populate('memberId')
+				.populate('bankId');
+			res.render('admin/booking/showDetailBooking.ejs', {
+				booking,
+				title: 'Staycation | Detail Booking',
+				user: req.session.user,
+			});
+		} catch (error) {
+			res.redirect('/admin/booking');
+		}
+	},
+
 	viewBooking: async (req, res) => {
 		try {
 			const booking = await Booking.find()

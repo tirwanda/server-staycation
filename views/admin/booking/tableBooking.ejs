@@ -1,6 +1,6 @@
 <div class="card shadow mb-4">
 	<div class="card-header py-3">
-		<h6 class="m-0 font-weight-bold text-primary">DataTables Example</h6>
+		<h6 class="m-0 font-weight-bold text-primary">Booking</h6>
 	</div>
 	<div class="card-body">
 		<div class="table-responsive">
@@ -41,7 +41,7 @@
 						<td><%= booking[i].payments.status %></td>
 						<td>
 							<a
-								href="#"
+								href="/admin/booking/<%= booking[i]._id %>"
 								class="btn btn-warning btn-circle btn-sm button-update"
 								><i class="fas fa-eye"></i
 							></a>
