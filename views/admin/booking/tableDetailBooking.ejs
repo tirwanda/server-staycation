@@ -12,21 +12,29 @@
 						style="width: 100%; display: block"
 					/>
 				</div>
+				<% if(booking.payments.status == 'Process') { %>
 				<div class="row justify-content-around">
-					<form action="/admin/booking" method="POST">
+					<form
+						action="/admin/booking/<%= booking._id %>/confirmation?_method=PUT"
+						method="POST"
+					>
 						<button type="submit" class="btn btn-success btn-sm">
 							<i class="fas fa-check"></i>
 							Confirm
 						</button>
 					</form>
 
-					<form action="/admin/booking" method="POST">
+					<form
+						action="/admin/booking/<%= booking._id %>/reject?_method=PUT"
+						method="POST"
+					>
 						<button type="submit" class="btn btn-danger btn-sm">
 							<i class="fas fa-times"></i>
 							Reject
 						</button>
 					</form>
 				</div>
+				<% } %>
 			</div>
 			<div class="col-md-8">
 				<div class="table-responsive">

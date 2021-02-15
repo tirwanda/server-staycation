@@ -69,6 +69,40 @@ module.exports = {
 		res.redirect('/admin/signin');
 	},
 
+	actionConfirmation: async (req, res) => {
+		const { bookingId } = req.params;
+		try {
+			const booking = await Booking.findOne({ _id: bookingId });
+			booking.payments.status = 'Accept';
+			req.flash('alertMessage', 'Success Confirm Booking');
+			req.flash('alertStatus', 'success');
+			await booking.save();
+			res.redirect(`/admin/booking/${bookingId}`);
+		} catch (error) {
+			req.flash('alertMessage', `${error.message}`);
+			req.flash('alertStatus', 'danger');
+			res.redirect(`/admin/booking/${bookingId}`);
+		}
+	},
+
+	actionReject: async (req, res) => {
+		const { bookingId } = req.params;
+		try {
+			const booking = await Booking.findOne({
+				_id: bookingId,
+			});
+			booking.payments.status = 'Rejected';
+			req.flash('alertMessage', 'Success Rejected Booking');
+			req.flash('alertStatus', 'success');
+			await booking.save();
+			res.redirect(`/admin/booking/${bookingId}`);
+		} catch (error) {
+			req.flash('alertMessage', `${error.message}`);
+			req.flash('alertStatus', 'danger');
+			res.redirect(`/admin/booking/${bookingId}`);
+		}
+	},
+
 	viewDasboard: (req, res) => {
 		try {
 			res.render('admin/dashboard/viewDashboard.ejs', {
@@ -212,7 +246,14 @@ module.exports = {
 			const booking = await Booking.findOne({ _id: bookingId })
 				.populate('memberId')
 				.populate('bankId');
+			const alertMessage = req.flash('alertMessage');
+			const alertStatus = req.flash('alertStatus');
+			const alert = {
+				message: alertMessage,
+				status: alertStatus,
+			};
 			res.render('admin/booking/showDetailBooking.ejs', {
+				alert,
 				booking,
 				title: 'Staycation | Detail Booking',
 				user: req.session.user,
