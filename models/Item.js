@@ -27,6 +27,12 @@ const itemSchema = new mongoose.Schema({
 		type: String,
 		required: true,
 	},
+
+	unit: {
+		type: String,
+		default: 'night',
+	},
+
 	categoryId: {
 		type: ObjectId,
 		ref: 'Category',
