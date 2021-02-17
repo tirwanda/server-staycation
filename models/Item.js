@@ -33,6 +33,11 @@ const itemSchema = new mongoose.Schema({
 		default: 'night',
 	},
 
+	sumBooking: {
+		type: Number,
+		default: 0,
+	},
+
 	categoryId: {
 		type: ObjectId,
 		ref: 'Category',
