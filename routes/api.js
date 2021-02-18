@@ -5,5 +5,6 @@ const router = express.Router();
 const apiController = require('../controllers/apiController');
 
 router.get('/landingPage', apiController.landingPage);
+router.get('/itemDetail/:id', apiController.itemDetail);
 
 module.exports = router;
