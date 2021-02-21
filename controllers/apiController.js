@@ -116,7 +116,6 @@ module.exports = {
 			const {
 				itemId,
 				duration,
-				// price,
 				bookingStartDate,
 				bookingEndDate,
 				firstName,
@@ -133,7 +132,6 @@ module.exports = {
 
 			if (
 				duration === undefined ||
-				// price === undefined ||
 				bookingStartDate === undefined ||
 				bookingEndDate === undefined ||
 				firstName === undefined ||

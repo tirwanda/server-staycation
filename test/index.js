@@ -3,15 +3,14 @@ const chaiHttp = require('chai-http');
 const expect = chai.expect;
 const app = require('../app');
 const fs = require('fs');
-const { doesNotMatch } = require('assert');
 
 chai.use(chaiHttp);
 
 describe('API ENDPOINT TESTING', () => {
-	it('GET Landing Page', () => {
+	it('GET Landing Page', (done) => {
 		chai.request(app)
 			.get('/api/v1/member/landingPage')
-			.then((err, res) => {
+			.end((err, res) => {
 				expect(err).to.be.null;
 				expect(res).to.have.status(200);
 				expect(res.body).to.be.an('Object');
@@ -26,20 +25,19 @@ describe('API ENDPOINT TESTING', () => {
 				expect(res.body).to.have.property('category');
 				expect(res.body.category).to.have.an('array');
 				expect(res.body).to.have.property('testimonial');
-				expect(res.body.testimonial).to.have.an('Object');
-			})
-			.catch(function (err) {
-				throw err;
+				expect(res.body.testimonial).to.have.an('object');
+				// done();
 			});
+		done();
 	});
 
-	it('GET Detail Page', () => {
+	it('GET Detail Page', (done) => {
 		chai.request(app)
 			.get('/api/v1/member/itemDetail/5e96cbe292b97300fc902230')
-			.then((err, res) => {
+			.end((err, res) => {
 				expect(err).to.be.null;
 				expect(res).to.have.status(200);
-				expect(res.body).to.be.an('Object');
+				expect(res.body).to.be.an('object');
 				expect(res.body).to.have.property('country');
 				expect(res.body).to.have.property('isPopular');
 				expect(res.body).to.have.property('unit');
@@ -58,10 +56,9 @@ describe('API ENDPOINT TESTING', () => {
 				expect(res.body).to.have.property('categoryId');
 				expect(res.body).to.have.property('testimonial');
 				expect(res.body.testimonial).to.have.an('Object');
-			})
-			.catch(function (err) {
-				throw err;
+				// done();
 			});
+		done();
 	});
 
 	it('POST Booking Page', (done) => {
@@ -128,7 +125,7 @@ describe('API ENDPOINT TESTING', () => {
 					'duration'
 				);
 				console.log(res.body.booking);
-				done();
 			});
+		done();
 	});
 });
