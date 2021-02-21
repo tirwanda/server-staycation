@@ -26,9 +26,9 @@ describe('API ENDPOINT TESTING', () => {
 				expect(res.body.category).to.have.an('array');
 				expect(res.body).to.have.property('testimonial');
 				expect(res.body.testimonial).to.have.an('object');
-				// done();
+				done();
 			});
-		done();
+		// done();
 	});
 
 	it('GET Detail Page', (done) => {
@@ -56,9 +56,9 @@ describe('API ENDPOINT TESTING', () => {
 				expect(res.body).to.have.property('categoryId');
 				expect(res.body).to.have.property('testimonial');
 				expect(res.body.testimonial).to.have.an('Object');
-				// done();
+				done();
 			});
-		done();
+		// done();
 	});
 
 	it('POST Booking Page', (done) => {
@@ -125,7 +125,8 @@ describe('API ENDPOINT TESTING', () => {
 					'duration'
 				);
 				console.log(res.body.booking);
+				done();
 			});
-		done();
+		// done();
 	});
 });
