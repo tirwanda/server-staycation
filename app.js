@@ -10,15 +10,12 @@ require('dotenv/config');
 
 //====== Import Mongoose ======
 const mongoose = require('mongoose');
-mongoose.connect(
-	'mongodb://test:test@cluster0-shard-00-00.jtm9y.mongodb.net:27017,cluster0-shard-00-01.jtm9y.mongodb.net:27017,cluster0-shard-00-02.jtm9y.mongodb.net:27017/db_staycation_seed?ssl=true&replicaSet=atlas-p0skgr-shard-0&authSource=admin&retryWrites=true&w=majority',
-	{
-		useNewUrlParser: true,
-		useUnifiedTopology: true,
-		useCreateIndex: true,
-		useFindAndModify: false,
-	}
-);
+mongoose.connect(process.env.DB_CONNECTION_seed, {
+	useNewUrlParser: true,
+	useUnifiedTopology: true,
+	useCreateIndex: true,
+	useFindAndModify: false,
+});
 let db = mongoose.connection;
 
 db.on('error', console.error.bind(console, 'Database connect error!'));
